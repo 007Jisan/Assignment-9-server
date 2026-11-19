@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import Stripe from 'stripe';
 import { User } from '../models/User';
 import { Transaction } from '../models/Transaction';
+import { isConnectedToMongoDB } from '../config/db';
+import { dbStore } from '../models/store';
 
 const router = express.Router();
 
@@ -17,32 +19,55 @@ export const activatePremiumSubscription = async (
   stripeSessionId: string,
   stripeSubscriptionId?: string
 ) => {
-  const vendor = await User.findById(vendorId);
-  if (!vendor) {
-    throw new Error(`Vendor ${vendorId} not found`);
-  }
-
-  // Activate premium subscription for 30 days
   const expiresAt = new Date();
   expiresAt.setDate(expiresAt.getDate() + 30);
 
-  vendor.subscriptionPlan = 'premium';
-  vendor.subscriptionExpiresAt = expiresAt;
-  await vendor.save();
+  if (isConnectedToMongoDB) {
+    const vendor = await User.findById(vendorId);
+    if (!vendor) {
+      throw new Error(`Vendor ${vendorId} not found`);
+    }
 
-  // Create permanent transaction record
-  const transaction = await Transaction.create({
-    vendorId: vendor._id,
-    plan: 'premium',
-    amount: amount / 100, // convert cents to dollars
-    currency: currency || 'usd',
-    stripeSessionId: stripeSessionId || '',
-    stripeSubscriptionId: stripeSubscriptionId || '',
-    status: 'succeeded',
-  });
+    vendor.subscriptionPlan = 'premium';
+    vendor.subscriptionExpiresAt = expiresAt;
+    await vendor.save();
 
-  console.log(`[Stripe Webhook] Successfully activated Premium for vendor: ${vendor.name} (${vendor._id})`);
-  return transaction;
+    const transaction = await Transaction.create({
+      vendorId: vendor._id,
+      plan: 'premium',
+      amount: amount / 100,
+      currency: currency || 'usd',
+      stripeSessionId: stripeSessionId || '',
+      stripeSubscriptionId: stripeSubscriptionId || '',
+      status: 'succeeded',
+    });
+
+    console.log(`[Stripe Webhook] Successfully activated Premium for vendor: ${vendor.name} (${vendor._id})`);
+    return transaction;
+  } else {
+    const vendor = dbStore.findUserById(vendorId);
+    if (!vendor) {
+      throw new Error(`Vendor ${vendorId} not found`);
+    }
+
+    dbStore.updateUser(vendorId, {
+      subscriptionPlan: 'premium',
+      subscriptionExpiresAt: expiresAt.toISOString(),
+    });
+
+    const transaction = dbStore.createTransaction({
+      vendorId,
+      plan: 'premium',
+      amount: amount / 100,
+      currency: currency || 'usd',
+      stripeSessionId: stripeSessionId || '',
+      stripeSubscriptionId: stripeSubscriptionId || '',
+      status: 'succeeded',
+    });
+
+    console.log(`[Stripe Webhook] Successfully activated Premium for vendor: ${vendor.name} (${vendor._id})`);
+    return transaction;
+  }
 };
 
 // POST /api/webhook/stripe - Stripe webhook listener with signature verification
@@ -59,7 +84,6 @@ router.post(
       if (endpointSecret && sig && !endpointSecret.includes('placeholder')) {
         event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
       } else {
-        // Fallback for local testing or mock events
         event = JSON.parse(req.body.toString());
       }
     } catch (err: any) {
@@ -68,7 +92,6 @@ router.post(
       return;
     }
 
-    // Handle checkout.session.completed event
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object as Stripe.Checkout.Session;
       const vendorId = session.metadata?.vendorId;
@@ -94,7 +117,7 @@ router.post(
   }
 );
 
-// POST /api/webhook/simulate-success (For testing environments when testing without Stripe CLI)
+// POST /api/webhook/simulate-success
 router.post('/simulate-success', async (req: Request, res: Response): Promise<void> => {
   try {
     const { vendorId } = req.body;

@@ -1,0 +1,256 @@
+{
+  "users": [
+    {
+      "_id": "673cc0000000000000000001",
+      "name": "PizzaHub Admin",
+      "email": "admin@pizzahub.com",
+      "password": "$2a$10$91hiPYUNWhm2ZWYGpCNZPePc1Q1hoQybcv.heDqVLQJcSKncKs3vm",
+      "role": "admin",
+      "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
+      "isBlocked": false,
+      "subscriptionPlan": "free",
+      "createdAt": "2026-11-19T15:29:17.436Z",
+      "updatedAt": "2026-11-19T15:29:17.436Z"
+    },
+    {
+      "_id": "673cc0000000000000000002",
+      "name": "Luigi Rossi",
+      "email": "luigi@pizzahub.com",
+      "password": "$2a$10$91hiPYUNWhm2ZWYGpCNZPelB2Xu65683SWdy.l34YXl2O3OLwyKWa",
+      "role": "vendor",
+      "businessName": "Luigi's Authentic Wood-Fired Pizzeria",
+      "image": "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400",
+      "isBlocked": false,
+      "subscriptionPlan": "premium",
+      "subscriptionExpiresAt": "2026-12-19T15:29:17.437Z",
+      "createdAt": "2026-11-19T15:29:17.436Z",
+      "updatedAt": "2026-11-19T15:29:17.436Z"
+    },
+    {
+      "_id": "673cc0000000000000000003",
+      "name": "Marco Bellini",
+      "email": "marco@pizzahub.com",
+      "password": "$2a$10$91hiPYUNWhm2ZWYGpCNZPelB2Xu65683SWdy.l34YXl2O3OLwyKWa",
+      "role": "vendor",
+      "businessName": "Bella Napoli Artisan Pies",
+      "image": "https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=400",
+      "isBlocked": false,
+      "subscriptionPlan": "free",
+      "createdAt": "2026-11-19T15:29:17.436Z",
+      "updatedAt": "2026-11-19T15:29:17.436Z"
+    },
+    {
+      "_id": "673cc0000000000000000004",
+      "name": "Alex Rivera",
+      "email": "alex@gmail.com",
+      "password": "$2a$10$91hiPYUNWhm2ZWYGpCNZPeK4VoUlamU5qsVsLuV8sdOzYz3G59FWe",
+      "role": "customer",
+      "image": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400",
+      "isBlocked": false,
+      "subscriptionPlan": "free",
+      "createdAt": "2026-11-19T15:29:17.436Z",
+      "updatedAt": "2026-11-19T15:29:17.436Z"
+    },
+    {
+      "name": "John Dough",
+      "email": "custom_customer_1795103252258@gmail.com",
+      "password": "$2a$10$NkyfQAzo3oeDgGYQ81Gwme17eM4nCnEujMQOclBxg5JweK/t6gewm",
+      "image": "",
+      "role": "customer",
+      "subscriptionPlan": "free",
+      "isBlocked": false,
+      "_id": "6aff1a14501cd73ed3c5ecd9",
+      "createdAt": "2026-11-19T15:47:32.373Z",
+      "updatedAt": "2026-11-19T15:47:32.373Z"
+    },
+    {
+      "name": "Chef Antonio",
+      "email": "custom_vendor_1795103252472@pizzahub.com",
+      "password": "$2a$10$SusZtWR6NfGiCQJ.qiFCw.T4nMDd95Zl0IYz4/IERvnqBLf5o94BO",
+      "image": "",
+      "role": "vendor",
+      "businessName": "Antonio Napoli Woodfire",
+      "subscriptionPlan": "free",
+      "isBlocked": false,
+      "_id": "6aff1a1465c16d6d613e4982",
+      "createdAt": "2026-11-19T15:47:32.578Z",
+      "updatedAt": "2026-11-19T15:47:32.578Z"
+    },
+    {
+      "name": "Marco Tester",
+      "email": "marcotest@pizzahub.com",
+      "password": "$2a$10$t2UhCmrF851TlGUINuT5du7nCuF1w97zEYmcKLEmesyw9yLfdWj92",
+      "image": "",
+      "role": "customer",
+      "subscriptionPlan": "free",
+      "isBlocked": false,
+      "_id": "6aff1a3f3be7e2d10fedf95f",
+      "createdAt": "2026-11-19T15:48:15.314Z",
+      "updatedAt": "2026-11-19T15:48:15.314Z"
+    }
+  ],
+  "menuItems": [
+    {
+      "_id": "673cc0000000000000000010",
+      "vendorId": "673cc0000000000000000002",
+      "itemName": "Classic Neapolitan Margherita",
+      "category": "Classic Pizzas",
+      "description": "San Marzano tomato sauce, fresh mozzarella di bufala, fragrant sweet basil, extra virgin olive oil on a charred stone-baked crust.",
+      "price": 16.99,
+      "location": "Downtown Brooklyn, NY",
+      "images": [
+        "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=800",
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800"
+      ],
+      "status": "approved",
+      "rating": 4.9,
+      "reviewCount": 28,
+      "createdAt": "2026-11-19T15:29:17.436Z",
+      "updatedAt": "2026-11-19T15:29:17.436Z"
+    },
+    {
+      "_id": "673cc0000000000000000011",
+      "vendorId": "673cc0000000000000000002",
+      "itemName": "Double Pepperoni Overload",
+      "category": "Meat Lovers",
+      "description": "Generous layers of spicy crispy cupping pepperoni, aged mozzarella, provolone blend, and house herb tomato passata.",
+      "price": 19.99,
+      "location": "Downtown Brooklyn, NY",
+      "images": [
+        "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=800",
+        "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=800"
+      ],
+      "status": "approved",
+      "rating": 4.8,
+      "reviewCount": 35,
+      "createdAt": "2026-11-19T15:29:17.436Z",
+      "updatedAt": "2026-11-19T15:29:17.436Z"
+    },
+    {
+      "_id": "673cc0000000000000000012",
+      "vendorId": "673cc0000000000000000002",
+      "itemName": "Black Truffle Wild Mushroom & Goat Cheese",
+      "category": "Specialty / Gourmet Pizzas",
+      "description": "Truffle-infused garlic cream sauce, roasted cremini, shiitake and oyster mushrooms, creamy chèvre goat cheese, and fresh thyme.",
+      "price": 24.5,
+      "location": "Downtown Brooklyn, NY",
+      "images": [
+        "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800",
+        "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=800"
+      ],
+      "status": "approved",
+      "rating": 5,
+      "reviewCount": 19,
+      "createdAt": "2026-11-19T15:29:17.436Z",
+      "updatedAt": "2026-11-19T15:29:17.436Z"
+    },
+    {
+      "_id": "673cc0000000000000000013",
+      "vendorId": "673cc0000000000000000003",
+      "itemName": "Four Cheese Quattro Formaggi Gold",
+      "category": "Classic Pizzas",
+      "description": "Rich blend of creamy Taleggio, Gorgonzola Dolce, smoked provola, Parmigiano Reggiano, and hot honey drizzle.",
+      "price": 18.5,
+      "location": "Manhattan Little Italy, NY",
+      "images": [
+        "https://images.unsplash.com/photo-1573821663912-569905455b1c?w=800"
+      ],
+      "status": "approved",
+      "rating": 4.7,
+      "reviewCount": 14,
+      "createdAt": "2026-11-19T15:29:17.436Z",
+      "updatedAt": "2026-11-19T15:29:17.436Z"
+    },
+    {
+      "_id": "673cc0000000000000000014",
+      "vendorId": "673cc0000000000000000003",
+      "itemName": "Garden Harvest Primavera Special",
+      "category": "Vegetarian Pizzas",
+      "description": "Charred bell peppers, artichoke hearts, kalamata olives, red onions, heirloom cherry tomatoes, and vegan basil pesto.",
+      "price": 17.5,
+      "location": "Manhattan Little Italy, NY",
+      "images": [
+        "https://images.unsplash.com/photo-1590947132387-155cc02f3212?w=800"
+      ],
+      "status": "approved",
+      "rating": 4.6,
+      "reviewCount": 12,
+      "createdAt": "2026-11-19T15:29:17.436Z",
+      "updatedAt": "2026-11-19T15:29:17.436Z"
+    },
+    {
+      "_id": "673cc0000000000000000015",
+      "vendorId": "673cc0000000000000000002",
+      "itemName": "Garlic Butter Stuffed Dough Knots (6 pcs)",
+      "category": "Sides & Appetizers",
+      "description": "Fresh baked golden dough knots tossed in roasted garlic herb butter, grated Pecorino, served with warm marinara dipping sauce.",
+      "price": 8.99,
+      "location": "Downtown Brooklyn, NY",
+      "images": [
+        "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?w=800"
+      ],
+      "status": "approved",
+      "rating": 4.8,
+      "reviewCount": 31,
+      "createdAt": "2026-11-19T15:29:17.436Z",
+      "updatedAt": "2026-11-19T15:29:17.436Z"
+    },
+    {
+      "vendorId": "6aff1a1465c16d6d613e4982",
+      "itemName": "Truffle Mushroom Delite",
+      "category": "Specialty / Gourmet Pizzas",
+      "description": "Handmade stone-baked pizza with black truffles and fresh mozzarella.",
+      "price": 21.99,
+      "location": "Little Italy, NY",
+      "images": [
+        "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800"
+      ],
+      "status": "pending",
+      "rating": 5,
+      "reviewCount": 0,
+      "_id": "6aff1a147d2e9a73675ef7e8",
+      "createdAt": "2026-11-19T15:47:32.584Z",
+      "updatedAt": "2026-11-19T15:47:32.584Z"
+    }
+  ],
+  "orders": [
+    {
+      "_id": "673cc0000000000000000020",
+      "itemId": "673cc0000000000000000010",
+      "vendorId": "673cc0000000000000000002",
+      "customerId": "673cc0000000000000000004",
+      "deliveryDate": "2026-11-20",
+      "deliveryAddress": "742 Evergreen Terrace, Brooklyn, NY 11201",
+      "message": "Leave by door, ring bell twice please.",
+      "status": "accepted",
+      "statusTimeline": [
+        {
+          "status": "pending",
+          "timestamp": "2026-11-19T15:29:17.436Z",
+          "note": "Order placed by customer."
+        },
+        {
+          "status": "accepted",
+          "timestamp": "2026-11-19T15:29:17.436Z",
+          "note": "Confirmed by Luigi’s Pizzeria."
+        }
+      ],
+      "createdAt": "2026-11-19T15:29:17.436Z",
+      "updatedAt": "2026-11-19T15:29:17.436Z"
+    }
+  ],
+  "transactions": [
+    {
+      "_id": "673cc0000000000000000030",
+      "vendorId": "673cc0000000000000000002",
+      "plan": "premium",
+      "amount": 19.99,
+      "currency": "usd",
+      "stripeSessionId": "cs_test_seed_001",
+      "status": "succeeded",
+      "createdAt": "2026-11-19T15:29:17.436Z"
+    }
+  ],
+  "reviews": [],
+  "favorites": []
+}

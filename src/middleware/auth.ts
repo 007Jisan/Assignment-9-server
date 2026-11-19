@@ -1,9 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { User, IUser } from '../models/User';
+import { isConnectedToMongoDB } from '../config/db';
+import { dbStore } from '../models/store';
 
 export interface AuthRequest extends Request {
-  user?: IUser;
+  user?: any;
 }
 
 export const verifyToken = async (
@@ -29,7 +31,18 @@ export const verifyToken = async (
     const secret = process.env.JWT_SECRET || 'pizzahub_jwt_secret_dev_key_secure_2026_9999';
     const decoded = jwt.verify(token, secret) as { id: string; role: string };
 
-    const user = await User.findById(decoded.id).select('-password');
+    let user: any = null;
+    if (isConnectedToMongoDB) {
+      user = await User.findById(decoded.id).select('-password');
+    } else {
+      user = dbStore.findUserById(decoded.id);
+      if (user) {
+        // Strip password for safety
+        const { password, ...safeUser } = user;
+        user = safeUser;
+      }
+    }
+
     if (!user) {
       res.status(401).json({ success: false, message: 'User not found or session invalid.' });
       return;
