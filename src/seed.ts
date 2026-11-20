@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
+import dns from 'dns';
 import { User } from './models/User';
 import { MenuItem } from './models/MenuItem';
 import { Order } from './models/Order';
@@ -12,6 +13,11 @@ dotenv.config();
 const seedDatabase = async () => {
   try {
     const uri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/pizzahub';
+    if (uri.startsWith('mongodb+srv://') || uri.includes('@')) {
+      try {
+        dns.setServers(['8.8.8.8', '1.1.1.1']);
+      } catch {}
+    }
     await mongoose.connect(uri);
     console.log('[Seed] Connected to database.');
 

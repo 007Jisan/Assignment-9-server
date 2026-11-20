@@ -87,6 +87,17 @@
       "_id": "6aff1a3f3be7e2d10fedf95f",
       "createdAt": "2026-11-19T15:48:15.314Z",
       "updatedAt": "2026-11-19T15:48:15.314Z"
+    },
+    {
+      "name": "New Foodie",
+      "email": "user_uluq5@gmail.com",
+      "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200",
+      "role": "customer",
+      "subscriptionPlan": "free",
+      "isBlocked": false,
+      "_id": "6aff1cdd209afbb9b66b7106",
+      "createdAt": "2026-11-19T15:59:25.177Z",
+      "updatedAt": "2026-11-19T15:59:25.177Z"
     }
   ],
   "menuItems": [
@@ -237,6 +248,30 @@
       ],
       "createdAt": "2026-11-19T15:29:17.436Z",
       "updatedAt": "2026-11-19T15:29:17.436Z"
+    },
+    {
+      "itemId": "673cc0000000000000000010",
+      "vendorId": "673cc0000000000000000002",
+      "customerId": "6aff1cdd209afbb9b66b7106",
+      "deliveryDate": "2026-11-19",
+      "deliveryAddress": "nn",
+      "message": "v",
+      "status": "cancelled",
+      "statusTimeline": [
+        {
+          "status": "pending",
+          "timestamp": "2026-11-19T15:59:53.345Z",
+          "note": "Order placed by customer and awaiting restaurant confirmation."
+        },
+        {
+          "status": "cancelled",
+          "timestamp": "2026-11-19T16:00:03.352Z",
+          "note": "Order was cancelled by the customer."
+        }
+      ],
+      "_id": "6aff1cf90b2b2d3cdfdf1214",
+      "createdAt": "2026-11-19T15:59:53.345Z",
+      "updatedAt": "2026-11-19T16:00:03.352Z"
     }
   ],
   "transactions": [
