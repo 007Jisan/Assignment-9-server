@@ -58,6 +58,25 @@ router.get('/', async (req: AuthRequest, res: Response, next) => {
   }
 });
 
+// GET /api/favorites/ids - Get list of item IDs saved by customer
+router.get('/ids', async (req: AuthRequest, res: Response, next) => {
+  try {
+    const userId = req.user!._id.toString();
+
+    if (isConnectedToMongoDB) {
+      const favorites = await Favorite.find({ userId }).select('itemId');
+      const ids = favorites.map((f) => f.itemId?.toString()).filter(Boolean);
+      res.status(200).json({ success: true, ids });
+    } else {
+      const userFavs = dbStore.getFavorites(userId);
+      const ids = userFavs.map((f) => f.itemId);
+      res.status(200).json({ success: true, ids });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 // POST /api/favorites/toggle - Toggle favorite status
 router.post('/toggle', async (req: AuthRequest, res: Response, next) => {
   try {

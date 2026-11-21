@@ -49,6 +49,18 @@ router.post('/', verifyToken, requireRole('customer'), async (req: AuthRequest, 
       return;
     }
 
+    // Validate delivery date is not in the past
+    const parsedDate = new Date(deliveryDate + 'T23:59:59Z');
+    const today = new Date();
+    const minAllowed = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - 1, 0, 0, 0));
+    if (isNaN(parsedDate.getTime()) || parsedDate < minAllowed) {
+      res.status(400).json({
+        success: false,
+        message: 'Delivery date cannot be in the past. Please select today or a future date.',
+      });
+      return;
+    }
+
     if (isConnectedToMongoDB) {
       const item = await MenuItem.findById(itemId);
       if (!item) {
