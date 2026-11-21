@@ -16,20 +16,32 @@ const signToken = (id: string, role: string) => {
 // POST /api/auth/register - Actual registration with real validation & bcrypt hashing
 router.post('/register', async (req, res, next) => {
   try {
-    const { name, email, password, image, role, businessName } = req.body;
+    const { name, email, password, image, role, businessName, adminKey } = req.body;
 
     if (!name || !email || !password || !role) {
       res.status(400).json({ success: false, message: 'Please provide all required fields.' });
       return;
     }
 
-    // Role check: Only customer or vendor can be registered publicly
-    if (role !== 'customer' && role !== 'vendor') {
+    // Role check: Customer, Vendor, or Admin (Admin requires security authorization key)
+    if (!['customer', 'vendor', 'admin'].includes(role)) {
       res.status(400).json({
         success: false,
-        message: 'Invalid role. Public registration only allows Customer or Vendor accounts.',
+        message: 'Invalid role. Registration allows Customer, Vendor, or Admin accounts.',
       });
       return;
+    }
+
+    // Security check: Admin access must be assigned securely and cannot be registered without authorization key
+    if (role === 'admin') {
+      const expectedAdminKey = process.env.ADMIN_SECURITY_KEY || 'pizza-admin-2026';
+      if (!adminKey || adminKey.trim() !== expectedAdminKey.trim()) {
+        res.status(403).json({
+          success: false,
+          message: 'Invalid Admin Security Key. Admin accounts must be created with authorized security access.',
+        });
+        return;
+      }
     }
 
     // Password validation: minimum 6 characters, one uppercase letter, one lowercase letter
