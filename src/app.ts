@@ -38,28 +38,42 @@ app.use(
 
 // Stripe webhook route needs raw body parser (mounted BEFORE express.json())
 app.use('/api/webhook', webhookRoutes);
+app.use('/webhook', webhookRoutes);
 
 // JSON body parser for all other routes (high limit to support rich dish photos & base64)
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get(['/', '/api', '/api/health', '/health'], (req, res) => {
   res.status(200).json({
     status: 'ok',
-    message: 'PizzaHub API is running smoothly',
+    message: 'PizzaHub API is running smoothly on Vercel',
     timestamp: new Date().toISOString(),
   });
 });
 
-// Mount modular API routes
+// Mount modular API routes (accessible with or without /api prefix)
 app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
+
 app.use('/api/menu', menuRoutes);
+app.use('/menu', menuRoutes);
+
 app.use('/api/orders', orderRoutes);
+app.use('/orders', orderRoutes);
+
 app.use('/api/vendor', vendorRoutes);
+app.use('/vendor', vendorRoutes);
+
 app.use('/api/admin', adminRoutes);
+app.use('/admin', adminRoutes);
+
 app.use('/api/reviews', reviewRoutes);
+app.use('/reviews', reviewRoutes);
+
 app.use('/api/favorites', favoriteRoutes);
+app.use('/favorites', favoriteRoutes);
 
 // Centralized error handler
 app.use(errorHandler);
