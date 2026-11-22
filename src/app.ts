@@ -39,9 +39,9 @@ app.use(
 // Stripe webhook route needs raw body parser (mounted BEFORE express.json())
 app.use('/api/webhook', webhookRoutes);
 
-// JSON body parser for all other routes
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// JSON body parser for all other routes (high limit to support rich dish photos & base64)
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
