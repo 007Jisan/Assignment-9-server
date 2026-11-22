@@ -117,6 +117,46 @@ router.post(
   }
 );
 
+// GET /api/webhook/verify-session - Verify a real Stripe Checkout Session directly with Stripe API
+router.get('/verify-session', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const sessionId = req.query.sessionId as string;
+    if (!sessionId) {
+      res.status(400).json({ success: false, message: 'sessionId is required.' });
+      return;
+    }
+
+    if (sessionId.startsWith('demo_session_') || sessionId.startsWith('sim_sess_')) {
+      res.status(200).json({ success: true, simulated: true });
+      return;
+    }
+
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    if (session && (session.payment_status === 'paid' || session.status === 'complete')) {
+      const vendorId = session.metadata?.vendorId;
+      if (vendorId) {
+        const amount = session.amount_total || 1999;
+        const currency = session.currency || 'usd';
+        const subscriptionId = (session.subscription as string) || '';
+        const transaction = await activatePremiumSubscription(
+          vendorId,
+          amount,
+          currency,
+          session.id,
+          subscriptionId
+        );
+        res.status(200).json({ success: true, verified: true, transaction });
+        return;
+      }
+    }
+
+    res.status(200).json({ success: false, message: 'Session is not paid or verified.' });
+  } catch (error: any) {
+    console.error('Failed to verify stripe session:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 // POST /api/webhook/simulate-success
 router.post('/simulate-success', async (req: Request, res: Response): Promise<void> => {
   try {
