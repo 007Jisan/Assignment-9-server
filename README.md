@@ -5,9 +5,9 @@
 ---
 
 ## 🔗 Project Links
-- **Live API Endpoint**: [https://pizzahub-api.onrender.com/api](https://pizzahub-api.onrender.com/api) *(Deploy URL)*
-- **Client GitHub Repository**: [https://github.com/your-username/pizzahub-client](https://github.com/your-username/pizzahub-client)
-- **Server GitHub Repository**: [https://github.com/your-username/pizzahub-server](https://github.com/your-username/pizzahub-server)
+- **Live API Endpoint**: [https://pizzahub-api.onrender.com/api](https://pizzahub-api.onrender.com/api)
+- **Client GitHub Repository**: [https://github.com/007Jisan/Assignment-9](https://github.com/007Jisan/Assignment-9)
+- **Server GitHub Repository**: [https://github.com/007Jisan/Assignment-9-server](https://github.com/007Jisan/Assignment-9-server)
 
 ---
 
