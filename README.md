@@ -5,7 +5,7 @@
 ---
 
 ## 🔗 Project Links
-- **Live API Endpoint**: [https://pizzahub-api.onrender.com/api](https://pizzahub-api.onrender.com/api)
+- **Live API Endpoint**: https://assignment-9-server-khaki.vercel.app/
 - **Client GitHub Repository**: [https://github.com/007Jisan/Assignment-9](https://github.com/007Jisan/Assignment-9)
 - **Server GitHub Repository**: [https://github.com/007Jisan/Assignment-9-server](https://github.com/007Jisan/Assignment-9-server)
 
