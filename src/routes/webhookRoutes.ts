@@ -1,15 +1,12 @@
 import express, { Request, Response } from 'express';
 import Stripe from 'stripe';
+import { getStripe } from '../config/stripe';
 import { User } from '../models/User';
 import { Transaction } from '../models/Transaction';
 import { isConnectedToMongoDB } from '../config/db';
 import { dbStore } from '../models/store';
 
 const router = express.Router();
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder', {
-  apiVersion: '2023-10-16' as any,
-});
 
 // Helper function to activate premium plan and create transaction
 export const activatePremiumSubscription = async (
@@ -80,6 +77,7 @@ router.post(
 
     let event: Stripe.Event;
 
+    const stripe = getStripe();
     try {
       if (endpointSecret && sig && !endpointSecret.includes('placeholder')) {
         event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
@@ -131,6 +129,7 @@ router.get('/verify-session', async (req: Request, res: Response): Promise<void>
       return;
     }
 
+    const stripe = getStripe();
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     if (session && (session.payment_status === 'paid' || session.status === 'complete')) {
       const vendorId = session.metadata?.vendorId;

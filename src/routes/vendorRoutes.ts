@@ -1,5 +1,5 @@
 import express, { Response } from 'express';
-import Stripe from 'stripe';
+import { getStripe } from '../config/stripe';
 import { MenuItem } from '../models/MenuItem';
 import { Order } from '../models/Order';
 import { User } from '../models/User';
@@ -8,10 +8,6 @@ import { isConnectedToMongoDB } from '../config/db';
 import { dbStore } from '../models/store';
 
 const router = express.Router();
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder', {
-  apiVersion: '2023-10-16' as any,
-});
 
 // Middleware: all vendor routes require authentication and vendor role
 router.use(verifyToken);
@@ -382,6 +378,7 @@ router.post('/create-checkout-session', async (req: AuthRequest, res: Response, 
       return;
     }
 
+    const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [

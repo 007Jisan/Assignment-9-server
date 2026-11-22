@@ -1,6 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
 import menuRoutes from './routes/menuRoutes';
 import orderRoutes from './routes/orderRoutes';
@@ -10,8 +12,6 @@ import webhookRoutes from './routes/webhookRoutes';
 import reviewRoutes from './routes/reviewRoutes';
 import favoriteRoutes from './routes/favoriteRoutes';
 import { errorHandler } from './middleware/errorHandler';
-
-dotenv.config();
 
 const app = express();
 
