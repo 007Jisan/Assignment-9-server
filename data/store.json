@@ -287,5 +287,12 @@
     }
   ],
   "reviews": [],
-  "favorites": []
+  "favorites": [
+    {
+      "_id": "6b02ca83f141650a50c43cd6",
+      "userId": "6b02c6f75e737df48662ed9f",
+      "itemId": "6b02c7745e737df48662edc9",
+      "createdAt": "2026-11-22T10:57:07.775Z"
+    }
+  ]
 }
